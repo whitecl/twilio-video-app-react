@@ -1,5 +1,5 @@
 import { Callback } from '../../../types';
-import EventEmitter from 'events';
+import { EventEmitter } from 'events';
 import { isMobile } from '../../../utils';
 import Video, { ConnectOptions, LocalTrack, Room } from 'twilio-video';
 import { useCallback, useEffect, useRef, useState } from 'react';

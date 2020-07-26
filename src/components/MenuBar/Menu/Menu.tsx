@@ -28,7 +28,7 @@ export default function Menu() {
 
   return (
     <div ref={anchorRef}>
-      <IconButton color="inherit" onClick={() => setMenuOpen(state => !state)}>
+      <IconButton onClick={() => setMenuOpen(state => !state)}>
         {user ? <UserAvatar user={user} /> : <MoreIcon />}
       </IconButton>
       <MenuContainer open={menuOpen} onClose={() => setMenuOpen(state => !state)} anchorEl={anchorRef.current}>
