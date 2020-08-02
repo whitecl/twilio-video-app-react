@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -8,10 +7,9 @@ import ToggleFullscreenButton from './ToggleFullScreenButton/ToggleFullScreenBut
 import Toolbar from '@material-ui/core/Toolbar';
 import Menu from './Menu/Menu';
 
-import GET_ROOM_CREDENTIALS from '../../../../queries/appointment/get-room-credentials';
+import { useAppointment } from '../../../../screens/appointment/appointment-provider';
 
 import { useAppState } from '../../state';
-import { useParams } from 'react-router-dom';
 import useRoomState from '../../hooks/useRoomState/useRoomState';
 import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
 import { Typography } from '@material-ui/core';
@@ -62,7 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function MenuBar() {
   const classes = useStyles();
-  const { code } = useParams();
   const { user, isFetching } = useAppState();
 
   const { isConnecting, connect, isAcquiringLocalTracks } = useVideoContext();
@@ -70,15 +67,13 @@ export default function MenuBar() {
 
   const [name, setName] = useState<string>(user?.displayName || '');
   const [roomName, setRoomName] = useState<string>('');
-  const { loading, data } = useQuery(GET_ROOM_CREDENTIALS, {
-    variables: { appointmentInviteToken: code },
-  });
+  const { loading, appointmentData } = useAppointment();
 
   useEffect(() => {
-    if (data?.videoToken) {
-      connect(data.videoToken);
+    if (appointmentData?.token) {
+      connect(appointmentData.token);
     }
-  }, [data?.videoToken]);
+  }, [appointmentData?.token]);
 
   if (loading) {
     return <div>Loading...</div>;
