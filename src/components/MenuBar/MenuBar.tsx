@@ -70,10 +70,10 @@ export default function MenuBar() {
   const { loading, appointmentData } = useAppointment();
 
   useEffect(() => {
-    if (appointmentData?.token) {
-      connect(appointmentData.token);
+    if (appointmentData?.videoToken) {
+      connect(appointmentData.videoToken);
     }
-  }, [appointmentData?.token]);
+  }, [appointmentData?.videoToken]);
 
   if (loading) {
     return <div>Loading...</div>;
