@@ -67,17 +67,6 @@ export default function MenuBar() {
 
   const [name, setName] = useState<string>(user?.displayName || '');
   const [roomName, setRoomName] = useState<string>('');
-  const { loading, appointmentData } = useAppointment();
-
-  useEffect(() => {
-    if (appointmentData?.videoToken) {
-      connect(appointmentData.videoToken);
-    }
-  }, [appointmentData?.videoToken]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <AppBar className={classes.container} position="static">
